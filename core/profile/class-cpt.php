@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamos\Core\Controllers;
+namespace Gamos\Core\Profile;
 
 // If this file is called directly, abort.
 defined( 'WPINC' ) || die;

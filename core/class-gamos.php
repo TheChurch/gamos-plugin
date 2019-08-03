@@ -44,6 +44,12 @@ final class Gamos extends Base {
 	 */
 	private function run() {
 		// Initialize cpts.
-		Controllers\CPT::instance()->init();
+		Profile\CPT::instance()->init();
+		// Setup shortcodes.
+		Profile\Shortcode::instance()->init();
+		// Setup slider.
+		Profile\Slider::instance()->init();
+		// Handle registration.
+		Profile\Registration::instance()->init();
 	}
 }
