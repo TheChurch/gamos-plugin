@@ -8,14 +8,14 @@ defined( 'WPINC' ) || die;
 use Gamos\Core\Utils\Abstracts\Base;
 
 /**
- * The shortcode class for the profile feature.
+ * The shortcode class for the profile registration.
  *
  * @link   http://gamos.in
  * @since  1.0.0
  *
  * @author Joel James <me@joelsays.com>
  */
-class Shortcode extends Base {
+class Shortcode_Registration extends Base {
 
 	/**
 	 * Initialize the class by registering hooks.
@@ -25,7 +25,7 @@ class Shortcode extends Base {
 	 * @return void
 	 */
 	public function init() {
-		// Change title place holder.
+		// Register shortcode.
 		add_shortcode( 'gamos_profile_registration', [ $this, 'registration' ] );
 	}
 

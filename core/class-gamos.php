@@ -46,7 +46,8 @@ final class Gamos extends Base {
 		// Initialize cpts.
 		Profile\CPT::instance()->init();
 		// Setup shortcodes.
-		Profile\Shortcode::instance()->init();
+		Profile\Shortcode_Registration::instance()->init();
+		Profile\Shortcode_Filter::instance()->init();
 		// Setup slider.
 		Profile\Slider::instance()->init();
 		// Handle registration.
