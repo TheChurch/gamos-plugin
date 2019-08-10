@@ -44,13 +44,13 @@ class Shortcode extends Base {
 	public function registration( $attr ) {
 		// We need ACF instance.
 		if ( ! function_exists( 'acf' ) ) {
-			return __( 'Advanced Custom Fields plugin should be active.', 'gamos-plugin' );
+			return sprintf( '<div class="gamos-notice error"><p>%s</p></div>', __( 'Advanced Custom Fields plugin should be active.', 'gamos-plugin' ) );
 		}
 
 		// Allow only logged in users.
 		if ( ! is_user_logged_in() ) {
 			return sprintf(
-				__( 'Please <a href="%s">login</a> or <a href="%s">register</a> before adding your profile.', 'gamos-plugin' ),
+				__( '<div class="gamos-notice error"><p>Please <a href="%s">login</a> or <a href="%s">register</a> before adding your profile.</p></div>', 'gamos-plugin' ),
 				wp_login_url( get_the_permalink() ),
 				wp_registration_url()
 			);
@@ -66,7 +66,7 @@ class Shortcode extends Base {
 
 		// We need field groups.
 		if ( empty( $field_groups ) ) {
-			return __( 'Please specify the ACF field group IDs in shortcode.', 'gamos-plugin' );
+			return sprintf( '<div class="gamos-notice error"><p>%s</p></div>', __( 'Please specify the ACF field group IDs in shortcode.', 'gamos-plugin' ) );
 		}
 
 		// Enqueue the required scripts and styles.
@@ -127,10 +127,18 @@ class Shortcode extends Base {
 	 */
 	private function create_form( $field_groups = [] ) {
 		return acf_form( [
-			'post_id'      => 'new_post',
-			'post_title'   => true,
-			'field_groups' => $field_groups,
-			'submit_value' => __( 'Submit', 'gamos-plugin' ),
+			'post_id'              => 'new_post',
+			'post_title'           => true,
+			'field_groups'         => $field_groups,
+			'return'               => false,
+			'submit_value'         => __( 'Submit', 'gamos-plugin' ),
+			'html_updated_message' => sprintf( '<div class="gamos-notice success"><p>%s</p></div>', __( 'Profile created successfully. It will be published after approval.', 'gamos-plugin' ) ),
+			'new_post'             => [
+				'post_type' => 'profile',
+			],
+			'form_attributes'      => [
+				'action' => add_query_arg( 'updated', true ),
+			],
 		] );
 	}
 
@@ -146,9 +154,14 @@ class Shortcode extends Base {
 	 */
 	private function edit_form( $id, $field_groups = [] ) {
 		return acf_form( [
-			'post_id'      => $id,
-			'post_title'   => true,
-			'field_groups' => $field_groups,
+			'post_id'              => $id,
+			'post_title'           => true,
+			'return'               => false,
+			'field_groups'         => $field_groups,
+			'html_updated_message' => sprintf( '<div class="gamos-notice success"><p>%s</p></div>', __( 'Profile updated successfully.', 'gamos-plugin' ) ),
+			'form_attributes'      => [
+				'action' => add_query_arg( 'updated', true ),
+			],
 		] );
 	}
 }

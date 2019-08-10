@@ -51,5 +51,10 @@ final class Gamos extends Base {
 		Profile\Slider::instance()->init();
 		// Handle registration.
 		Profile\Registration::instance()->init();
+
+		// Login form customization.
+		Account\Login_Form::instance()->init();
+		// Setup shortcodes.
+		Account\WPUM::instance()->init();
 	}
 }

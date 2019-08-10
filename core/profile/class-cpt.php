@@ -31,6 +31,9 @@ class CPT extends Base {
 		add_action( 'init', [ $this, 'churches' ] );
 		// Change title place holder.
 		add_filter( 'enter_title_here', [ $this, 'profile_title' ], 20, 2 );
+
+		// Profile filter widget.
+		add_action( 'widgets_init', [ $this, 'register_filter_widget' ] );
 	}
 
 	/**
@@ -77,7 +80,7 @@ class CPT extends Base {
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
-			'rewrite'            => [ 'slug' => 'profile' ],
+			'rewrite'            => [ 'slug' => 'profiles' ],
 			'capability_type'    => 'post',
 			'has_archive'        => true,
 			'hierarchical'       => false,
@@ -141,5 +144,14 @@ class CPT extends Base {
 		}
 
 		return $title;
+	}
+
+	/**
+	 * Register profile filter widget.
+	 *
+	 * @since 1.0.1
+	 */
+	public function register_filter_widget() {
+		register_widget( 'Gamos\Core\Profile\Filter_Widget' );
 	}
 }
