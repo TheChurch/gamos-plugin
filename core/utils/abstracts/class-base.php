@@ -8,10 +8,10 @@ defined( 'WPINC' ) || die;
 /**
  * Singleton class for all classes.
  *
- * @link   http://premium.wpmudev.org
- * @since  3.2.0
+ * @link   http://gamos.in
+ * @since  1.0.0
  *
- * @author Joel James <joel@incsub.com>
+ * @author Joel James <me@joelsays.com>
  */
 abstract class Base {
 
@@ -34,7 +34,7 @@ abstract class Base {
 	 * @return static Called class instance.
 	 */
 	public static function instance() {
-		static $instances = array();
+		static $instances = [];
 
 		// @codingStandardsIgnoreLine Plugin-backported
 		$called_class_name = get_called_class();

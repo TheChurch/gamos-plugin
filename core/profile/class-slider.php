@@ -33,11 +33,11 @@ class Slider extends Base {
 
 	/**
 	 * Add a custom thumbnail size for our slider.
-     *
-     * @since 1.0.1
+	 *
+	 * @since 1.0.1
 	 */
 	public function add_thumb_size() {
-		add_image_size( 'gamos', 300, 300, true );
+		add_image_size( 'gamos-profile', 300, 300, true );
 	}
 
 	/**
@@ -51,11 +51,37 @@ class Slider extends Base {
 	 */
 	public function register_lightslider() {
 		// Lightslider base url.
-		$lib_path = GAMOS_URL . 'app/assets/vendor/lightslider';
+		$lib_path = GAMOS_URL . 'app/assets/vendor/magnific-popup';
 
-		wp_register_style( 'gamos_lightslider', $lib_path . '/css/lightslider.min.css' );
+		wp_register_style( 'gamos_slider', $lib_path . '/css/magnific-popup.min.css' );
 
-		wp_register_script( 'gamos_lightslider', $lib_path . '/js/lightslider.min.js', [ 'jquery' ] );
+		wp_register_script( 'gamos_slider', $lib_path . '/js/jquery.magnific-popup.min.js', [ 'jquery' ] );
+	}
+
+	/**
+	 * Get gallery using lightbox plugin.
+	 *
+	 * @param array $images Images.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @return string
+	 */
+	public function profile_gallery( array $images ) {
+		// Basic requirement check.
+		if ( empty( $images ) ) {
+			return '';
+		}
+
+		$image_urls = [];
+
+		// Get image url.
+		foreach ( $images as $image ) {
+			$image_urls[] = $image['images']['url'];
+		}
+
+		// Render gallery.
+		return $this->render_slider( $image_urls );
 	}
 
 	/**
@@ -66,34 +92,37 @@ class Slider extends Base {
 	 *
 	 * @since 1.0.1
 	 */
-	public function render_slider( $image_urls, $name = '' ) {
+	private function render_slider( $image_urls, $name = 'Profile Image' ) {
 		$this->render_scripts();
+
+		// Images count.
+		$count = count( $image_urls );
+
 		?>
+
         <div class="gamos-profile-image-slider">
-            <ul id="lightSlider">
-				<?php foreach ( $image_urls as $url ) : ?>
-                    <li><img alt="<?php echo esc_attr( $name ); ?>" src="<?php echo $url; ?>" width="300" height="300"/>
-                    </li>
-				<?php endforeach; ?>
-            </ul>
+			<?php foreach ( $image_urls as $url ) : ?>
+                <a href="<?php echo $url; ?>" title="<?php echo esc_attr( $name ); ?>">
+                    <img alt="<?php echo esc_attr( $name ); ?>" src="<?php echo $url; ?>" width="300" height="300">
+                </a>
+			<?php endforeach; ?>
         </div>
 		<?php
 	}
 
 	/**
 	 * Render gallery scripts and styles.
-     *
-     * @since 1.0.1
-     *
-     * @return void
+	 *
+	 * @since 1.0.1
+	 *
+	 * @return void
 	 */
 	private function render_scripts() {
-	    // Slider assets.
-		wp_enqueue_style( 'gamos_lightslider' );
-		wp_enqueue_script( 'gamos_lightslider' );
+		// Slider assets.
+		wp_enqueue_style( 'gamos_slider' );
+		wp_enqueue_script( 'gamos_slider' );
 
 		// Custom styles and scripts.
-		wp_add_inline_style( 'gamos_lightslider', '.gamos-profile-image-slider{width:300px}ul{list-style:none outside none;padding-left:0;margin-bottom:0}li{display:block;float:left;margin-right:6px;cursor:pointer}img{display:block;height:auto;max-width:100%}' );
-		wp_add_inline_script( 'gamos_lightslider', 'jQuery("#lightSlider").lightSlider({gallery:!0,item:1,loop:!0,slideMargin:0,pager:0});' );
+		wp_add_inline_script( 'gamos_slider', 'jQuery(document).ready(function(){jQuery(".gamos-profile-image-slider").magnificPopup({delegate:"a",type:"image",mainClass:"mfp-img-mobile",gallery:{enabled:!0,navigateByImgClick:!0,preload:[0,1]},image:{tError:\'<a href="%url%">The image #%curr%</a> could not be loaded.\'}})});' );
 	}
 }

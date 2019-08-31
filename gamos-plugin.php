@@ -3,7 +3,7 @@
  * Plugin Name:        Gamos Plugin
  * Plugin URI:         http://gamos.in
  * Description:        Custom functionality for the Gamos Search site.
- * Version:            1.0.2
+ * Version:            1.2.0
  * Author:             Joel James
  * Author URI:         https://duckdev.com
  * GitHub Plugin URI:  https://github.com/thechurch/gamos-plugin

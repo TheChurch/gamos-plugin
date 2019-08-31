@@ -13,7 +13,7 @@ use Gamos\Core\Utils\Abstracts\Base;
  * @link   http://gamos.in
  * @since  1.0.0
  *
- * @author Joel James <joel@incsub.com>
+ * @author Joel James <me@joelsays.com>
  */
 final class Gamos extends Base {
 
@@ -29,34 +29,56 @@ final class Gamos extends Base {
 	 * @return void
 	 */
 	protected function __construct() {
-		$this->run();
+		// Initialize cpts.
+		$this->cpts();
+
+		$this->assets();
+
+		// Setup profile functionality.
+		$this->profile();
+
+		// Setup shortcodes.
+		$this->shortcodes();
 	}
 
 	/**
-	 * Run the plugin by registering all the hooks.
+	 * Initialize custom post types.
 	 *
-	 * Initialize all the child class where we will register the
-	 * hooks and filters for the plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
+	 * @since 1.1.0
 	 */
-	private function run() {
-		// Initialize cpts.
+	private function cpts() {
 		Profile\CPT::instance()->init();
-		// Setup shortcodes.
-		Profile\Shortcode_Registration::instance()->init();
-		Profile\Shortcode_Filter::instance()->init();
-		Profile\Shortcode_Profiles::instance()->init();
-		// Setup slider.
-		Profile\Slider::instance()->init();
-		// Handle registration.
-		Profile\Registration::instance()->init();
+	}
 
-		// Login form customization.
-		Account\Login_Form::instance()->init();
-		// Setup shortcodes.
-		Account\WPUM::instance()->init();
+	/**
+	 * Initialize custom shortcodes.
+	 *
+	 * @since 1.1.0
+	 */
+	private function shortcodes() {
+		Profile\Shortcodes\Registration::instance()->init();
+		Profile\Shortcodes\Filter::instance()->init();
+		Profile\Shortcodes\Manage_Profiles::instance()->init();
+		Profile\Shortcodes\List_Profiles::instance()->init();
+	}
+
+	/**
+	 * Setup profile functionality.
+	 *
+	 * @since 1.1.0
+	 */
+	private function profile() {
+		Profile\Slider::instance()->init();
+		Profile\ACF::instance()->init();
+		Profile\Account::instance()->init();
+	}
+
+	/**
+	 * Register all assets.
+	 *
+	 * @since 1.1.0
+	 */
+	private function assets() {
+		Assets::instance()->init();
 	}
 }
