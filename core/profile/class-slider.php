@@ -69,7 +69,7 @@ class Slider extends Base {
 	 */
 	public function profile_gallery( array $images ) {
 		// Basic requirement check.
-		if ( empty( $image[0]['images'] ) ) {
+		if ( empty( $images[0]['images'] ) ) {
 			return '';
 		} else {
 			$image_urls = [];
