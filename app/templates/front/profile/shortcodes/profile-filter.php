@@ -22,7 +22,7 @@ defined( 'WPINC' ) || die();
 
     <div class="gamos-profile-filter">
 
-        <form id="gamos-profile-filter-form" method="post">
+        <form id="gamos-profile-filter-form" method="get">
 
             <table>
                 <tr>
