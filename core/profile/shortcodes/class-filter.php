@@ -54,6 +54,7 @@ class Filter extends Base {
 		// Render template.
 		$content = Helper::view( 'front/profile/shortcodes/profile-filter', [
 			'job'       => get_query_var( 'profile_job', false ),
+			'gender'    => get_query_var( 'profile_gender', false ),
 			'church'    => get_query_var( 'profile_church', false ),
 			'min_age'   => get_query_var( 'profile_min_age', false ),
 			'max_age'   => get_query_var( 'profile_max_age', false ),
@@ -102,6 +103,7 @@ class Filter extends Base {
 		$vars[] = 'profile_max_age';
 		$vars[] = 'profile_education';
 		$vars[] = 'profile_job';
+		$vars[] = 'profile_gender';
 
 		return $vars;
 	}

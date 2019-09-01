@@ -56,7 +56,7 @@ class Slider extends Base {
 	 *
 	 * @return string
 	 */
-	public function profile_gallery( array $images ) {
+	public function profile_gallery( $images ) {
 		// Basic requirement check.
 		if ( empty( $images[0]['images'] ) ) {
 			return '';

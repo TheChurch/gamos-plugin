@@ -4,6 +4,7 @@
  * Profile filter template.
  *
  * @var string $job       Selected job.
+ * @var string $gender    Selected gender.
  * @var string $church    Selected church.
  * @var int    $min_age   Minimum age.
  * @var int    $max_age   Maximum age.
@@ -90,9 +91,16 @@ defined( 'WPINC' ) || die();
 							<?php endforeach; ?>
                         </select>
                     </td>
-                    <th colspan="2">
+                    <td>
+                        <select name="profile_gender" id="profile_gender" class="gamos-select2">
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
+                            <option value="male" <?php selected( $gender, 'male' ); ?>><?php esc_html_e( 'Male', 'gamos-plugin' ); ?></option>
+                            <option value="female" <?php selected( $gender, 'female' ); ?>><?php esc_html_e( 'Female', 'gamos-plugin' ); ?></option>
+                        </select>
+                    </td>
+                    <td>
                         <button type="submit" value="submit"><?php esc_html_e( 'Search', 'gamos-plugin' ); ?></button>
-                    </th>
+                    </td>
                 </tr>
             </table>
 

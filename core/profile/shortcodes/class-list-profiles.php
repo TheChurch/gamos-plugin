@@ -93,6 +93,7 @@ class List_Profiles extends Base {
 
 		// Get the query var values from request.
 		$job       = get_query_var( 'profile_job', false );
+		$gender    = get_query_var( 'profile_gender', false );
 		$church    = get_query_var( 'profile_church', false );
 		$min_age   = get_query_var( 'profile_min_age', false );
 		$max_age   = get_query_var( 'profile_max_age', false );
@@ -148,6 +149,15 @@ class List_Profiles extends Base {
 			$args['meta_query'][] = [
 				'key'   => 'education',
 				'value' => $education,
+			];
+		}
+
+		// Gender query.
+		if ( $gender ) {
+			// Setup meta query.
+			$args['meta_query'][] = [
+				'key'   => 'gender',
+				'value' => $gender,
 			];
 		}
 
