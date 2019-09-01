@@ -31,6 +31,9 @@ class ACF extends Base {
 		// Validate phone numbers.
 		add_filter( 'acf/validate_value/name=elder_contact_number', [ $this, 'phone_validation' ], 10, 2 );
 		add_filter( 'acf/validate_value/name=parents_contact_number', [ $this, 'phone_validation' ], 10, 2 );
+
+		// Change title label.
+		add_filter( 'acf/prepare_field/name=_post_title', [ $this, 'change_title' ] );
 	}
 
 	/**
@@ -70,5 +73,21 @@ class ACF extends Base {
 		}
 
 		return $valid;
+	}
+
+	/**
+	 * Enter title label to name.
+	 *
+	 * @param array $field Field data.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return array
+	 */
+	public function change_title( $field ) {
+		$field['label']        = __( 'Name' );
+		$field['instructions'] = __( 'Enter you full name.' );
+
+		return $field;
 	}
 }

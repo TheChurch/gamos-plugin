@@ -36,6 +36,9 @@ require_once GAMOS_DIR . '/core/utils/autoloader.php';
  * @since 1.0.0
  */
 add_action( 'plugins_loaded', function () {
-	// Create new instance of the plugin.
-	\Gamos\Core\Gamos::instance();
+	// Only when ACF and WP User Manager is active.
+	if ( function_exists( 'WPUM' ) && function_exists( 'acf' ) ) {
+		// Create new instance of the plugin.
+		\Gamos\Core\Gamos::instance();
+	}
 } );

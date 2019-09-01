@@ -14,7 +14,7 @@ $fields = empty( $groups ) ? '' : implode( ',', $groups );
 
 ?>
 
-<?php if ( current_user_can( 'manage_options' ) ) : // Admin can manage in backend. ?>
+<?php if ( !current_user_can( 'manage_options' ) ) : // Admin can manage in backend. ?>
 
     <p><?php printf( __( 'As an admin user, you can manage all profiles including your profile. <a href="%s">Click here</a> to manage profiles.', 'gamos-plugin' ), admin_url( 'edit.php?post_type=profile' ) ); ?></p>
 
