@@ -45,9 +45,27 @@ class List_Profiles extends Base {
 		wp_enqueue_style( 'gamos-front' );
 		wp_enqueue_script( 'gamos-front' );
 
+		// Query.
+		$query = $this->get_query();
+
+		// Paginate.
+		if ( $query->max_num_pages > 1 ) {
+			$pagination = paginate_links( [
+				'current'   => empty( $query->query_vars['paged'] ) ? 1 : $query->query_vars['paged'],
+				'total'     => $query->max_num_pages,
+				'prev_text' => __( 'Previous page', 'gamos-plugin' ),
+				'next_text' => __( 'Next page', 'gamos-plugin' ),
+			] );
+
+			$pagination = _navigation_markup( $pagination, 'pagination' );
+		} else {
+			$pagination = '';
+		}
+
 		// Render template.
 		$content = Helper::view( 'front/profile/shortcodes/list-profiles', [
-			'query' => $this->get_query(),
+			'query'      => $query,
+			'pagination' => $pagination,
 		], true );
 
 		return $content;
@@ -67,8 +85,10 @@ class List_Profiles extends Base {
 	public function get_query() {
 		// Create new query instance.
 		$args = [
-			'post_type'   => 'profile',
-			'post_status' => [ 'publish' ],
+			'post_type'      => 'profile',
+			'post_status'    => [ 'publish' ],
+			'posts_per_page' => 9,
+			'paged'          => get_query_var( 'paged', 1 ),
 		];
 
 		// Get the query var values from request.

@@ -27,17 +27,6 @@ class Slider extends Base {
 	public function init() {
 		// Register lightbox plugin.
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_lightslider' ] );
-
-		add_action( 'init', [ $this, 'add_thumb_size' ] );
-	}
-
-	/**
-	 * Add a custom thumbnail size for our slider.
-	 *
-	 * @since 1.0.1
-	 */
-	public function add_thumb_size() {
-		add_image_size( 'gamos-profile', 300, 300, true );
 	}
 
 	/**

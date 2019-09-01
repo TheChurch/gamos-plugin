@@ -31,7 +31,7 @@ if ( ! empty( $job_details ) ) {
 
     <div class="gamos-profile-card">
         <div class="gamos-profile-card-image">
-			<?php the_post_thumbnail(); ?>
+			<?php the_post_thumbnail( 'gamos-profile' ); ?>
         </div>
         <article class="gamos-profile-card-content">
             <h2 class="gamos-profile-card-title"><?php the_title( '', '' ); ?></h2>

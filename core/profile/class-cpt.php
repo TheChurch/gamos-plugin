@@ -40,6 +40,8 @@ class CPT extends Base {
 
 		// Show default image for thumbnail if no images found.
 		add_filter( 'post_thumbnail_html', [ $this, 'default_thumbnail' ], 10, 5 );
+
+		add_action( 'init', [ $this, 'add_thumb_size' ] );
 	}
 
 	/**
@@ -218,5 +220,14 @@ class CPT extends Base {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Add a custom thumbnail size for our slider.
+	 *
+	 * @since 1.0.1
+	 */
+	public function add_thumb_size() {
+		add_image_size( 'gamos-profile', 260, 185, true );
 	}
 }

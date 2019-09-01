@@ -3,7 +3,8 @@
 /**
  * List profiles template.
  *
- * @var WP_Query $query Query instance.
+ * @var WP_Query $query      Query instance.
+ * @var array    $pagination Pagination.
  *
  * @since 1.1.0
  */
@@ -39,6 +40,8 @@ use Gamos\Core\Helper;
 		<?php wp_reset_postdata(); // We need to do this. ?>
 
     </ul>
+
+	<?php echo $pagination; ?>
 
 <?php else : // No profile found. ?>
 
