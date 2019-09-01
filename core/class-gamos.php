@@ -58,7 +58,6 @@ final class Gamos extends Base {
 	private function shortcodes() {
 		Profile\Shortcodes\Registration::instance()->init();
 		Profile\Shortcodes\Filter::instance()->init();
-		Profile\Shortcodes\Manage_Profiles::instance()->init();
 		Profile\Shortcodes\List_Profiles::instance()->init();
 	}
 
