@@ -39,6 +39,9 @@ class Account extends Base {
 
 		// Disable profile thumbnail for theme.
 		add_filter( 'has_post_thumbnail', [ $this, 'has_thumbnail' ] );
+
+		// Only let admins to access wp-admin.
+		add_action( 'admin_init', [ $this, 'redirect_non_admin' ] );
 	}
 
 	/**
@@ -122,5 +125,19 @@ class Account extends Base {
 		}
 
 		return $has_thumbnail;
+	}
+
+	/**
+	 * Redirect all users except admins to front end.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public function redirect_non_admin() {
+		if ( ! defined( 'DOING_AJAX' ) && ! current_user_can( 'manage_options' ) ) {
+			wp_redirect( site_url() );
+			exit;
+		}
 	}
 }
