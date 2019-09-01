@@ -81,6 +81,11 @@ class Registration extends Base {
 		if ( empty( $profile ) ) {
 			$this->create_form( $field_groups );
 		} else {
+			// Show a pending message.
+			if ( ! isset( $_GET['updated'] ) && get_post_status( $profile ) !== 'publish' ) {
+				echo '<div class="wpum-message warning"><p>' . __( 'Your profile is pending approval.', 'gamos-plugin' ) . '</p></div>';
+			}
+
 			$this->edit_form( $profile, $field_groups );
 		}
 
@@ -133,12 +138,12 @@ class Registration extends Base {
 			'return'                => false,
 			'instruction_placement' => 'field',
 			'submit_value'          => __( 'Submit', 'gamos-plugin' ),
-			'html_updated_message'  => sprintf( '<div class="wpum-message success"><p>%s</p></div>', __( 'Profile created successfully. It will be published after approval.', 'gamos-plugin' ) ),
+			'html_updated_message'  => sprintf( '<div class="wpum-message success"><p>%s</p></div>', $this->updated_message() ),
 			'new_post'              => [
 				'post_type' => 'profile',
 			],
 			'form_attributes'       => [
-				'action' => add_query_arg( 'updated', true ),
+				'action' => add_query_arg( 'updated', 'create' ),
 			],
 		] );
 	}
@@ -160,10 +165,26 @@ class Registration extends Base {
 			'return'                => false,
 			'instruction_placement' => 'field',
 			'field_groups'          => $field_groups,
-			'html_updated_message'  => sprintf( '<div class="wpum-message success"><p>%s</p></div>', __( 'Profile updated successfully.', 'gamos-plugin' ) ),
+			'submit_value'          => __( 'Update', 'gamos-plugin' ),
+			'html_updated_message'  => sprintf( '<div class="wpum-message success"><p>%s</p></div>', $this->updated_message() ),
 			'form_attributes'       => [
-				'action' => add_query_arg( 'updated', true ),
+				'action' => add_query_arg( 'updated', 'update' ),
 			],
 		] );
+	}
+
+	/**
+	 * Get the proper success message based on the form.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string|void
+	 */
+	private function updated_message() {
+		if ( isset( $_GET['updated'] ) && 'create' === $_GET['updated'] ) {
+			return __( 'Profile created successfully. It will be published after approval.', 'gamos-plugin' );
+		} else {
+			return __( 'Profile updated successfully.', 'gamos-plugin' );
+		}
 	}
 }

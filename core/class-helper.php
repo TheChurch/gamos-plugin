@@ -74,29 +74,23 @@ class Helper {
 	}
 
 	/**
-	 * Get gallery using lightbox plugin.
+	 * Get a configuration item value.
 	 *
-	 * @since 1.0.1
+	 * These items should be defined in wp-config.php or somewhere.
 	 *
-	 * @return string
+	 * @param string $name    Config name.
+	 * @param mixed  $default Default value.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return mixed
 	 */
-	public static function get_profile_gallery( $images ) {
-		// Basic requirement check.
-		if ( empty( $images ) || ! class_exists( 'Gamos\Core\Profile\Slider' ) ) {
-			return '';
+	public static function get_config( $name, $default = false ) {
+		// Get value if defined.
+		if ( defined( $name ) ) {
+			return constant( $name );
 		}
 
-		// Gallery instance.
-		$gallery = Gamos\Core\Profile\Slider::instance();
-
-		// Get image url.
-		foreach ( $images as $image ) {
-			if ( isset( $image['images']['sizes']['gamos'] ) ) {
-				$image_urls[] = $image['images']['sizes']['gamos'];
-			}
-		}
-
-		// Render gallery.
-		return $gallery->render_slider( $image_urls );
+		return $default;
 	}
 }

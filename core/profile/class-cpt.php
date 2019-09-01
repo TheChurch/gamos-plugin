@@ -37,6 +37,9 @@ class CPT extends Base {
 
 		// Override profile single view content.
 		add_filter( 'the_content', [ $this, 'profile_view' ] );
+
+		// Show default image for thumbnail if no images found.
+		add_filter( 'post_thumbnail_html', [ $this, 'default_thumbnail' ], 10, 5 );
 	}
 
 	/**
@@ -170,5 +173,50 @@ class CPT extends Base {
 		], true );
 
 		return $content;
+	}
+
+	/**
+	 * Give default image if profile image is not set.
+	 *
+	 * @param string $html              Image html.
+	 * @param int    $post_id           Post ID.
+	 * @param int    $post_thumbnail_id Thumb id.
+	 * @param string $size              Size name.
+	 * @param array  $attr              Other attributes.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string
+	 */
+	public function default_thumbnail( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
+		// Only if empty.
+		if ( empty( $html ) && get_post_type( $post_id ) === 'profile' ) {
+			// Get default thumbnail.
+			$post_thumbnail_id = Helper::get_config( 'PROFILE_DEFAULT_THUMB' );
+
+			// We are helpless if it is not defined.
+			if ( empty( $post_thumbnail_id ) ) {
+				return $html;
+			}
+
+			/**
+			 * @see wp-includes/post-thumbnail-template.php
+			 */
+			do_action( 'begin_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size );
+
+			if ( in_the_loop() ) {
+				update_post_thumbnail_cache();
+			}
+
+			// Get attachment image.
+			$html = wp_get_attachment_image( $post_thumbnail_id, $size, false, $attr );
+
+			/**
+			 * @see wp-includes/post-thumbnail-template.php
+			 */
+			do_action( 'end_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size );
+		}
+
+		return $html;
 	}
 }

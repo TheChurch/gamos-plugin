@@ -69,15 +69,15 @@ class Slider extends Base {
 	 */
 	public function profile_gallery( array $images ) {
 		// Basic requirement check.
-		if ( empty( $images ) ) {
+		if ( empty( $image[0]['images'] ) ) {
 			return '';
-		}
+		} else {
+			$image_urls = [];
 
-		$image_urls = [];
-
-		// Get image url.
-		foreach ( $images as $image ) {
-			$image_urls[] = $image['images']['url'];
+			// Get image url.
+			foreach ( $images as $image ) {
+				$image_urls[] = $image['images']['url'];
+			}
 		}
 
 		// Render gallery.
@@ -103,7 +103,7 @@ class Slider extends Base {
         <div class="gamos-profile-image-slider">
 			<?php foreach ( $image_urls as $url ) : ?>
                 <a href="<?php echo $url; ?>" title="<?php echo esc_attr( $name ); ?>">
-                    <img alt="<?php echo esc_attr( $name ); ?>" src="<?php echo $url; ?>" width="300" height="300">
+                    <img alt="<?php echo esc_attr( $name ); ?>" src="<?php echo $url; ?>" height="300">
                 </a>
 			<?php endforeach; ?>
         </div>

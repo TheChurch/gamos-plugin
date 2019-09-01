@@ -33,6 +33,12 @@ class Account extends Base {
 
 		// Show profile form within profile tab.
 		add_action( 'wpum_account_page_content_profile', [ $this, 'profile_form' ] );
+
+		// Add post class.
+		add_filter( 'post_class', [ $this, 'post_class' ], 10, 3 );
+
+		// Disable profile thumbnail for theme.
+		add_filter( 'has_post_thumbnail', [ $this, 'has_thumbnail' ] );
 	}
 
 	/**
@@ -69,7 +75,52 @@ class Account extends Base {
 	public function profile_form() {
 		// Render template.
 		Helper::view( 'front/profile/profile-form', [
-			'groups' => [ 7, 26, 31, 34, 140 ],
+			'groups' => Helper::get_config( 'PROFILE_FIELD_GROUPS', [] ),
 		] );
+	}
+
+	/**
+	 * Add page class to profile view page.
+	 *
+	 * We need full width template.
+	 *
+	 * @param array $classes Array of post class names.
+	 * @param array $class   Array of additional class names added to the post.
+	 * @param int   $post_id The post ID.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return array
+	 */
+	public function post_class( $classes, $class, $post_id ) {
+		// Make sure we are in the dashboard.
+		if ( is_admin() || ! is_single() ) {
+			return $classes;
+		}
+
+		// Add page class.
+		if ( 'profile' === get_post_type( $post_id ) ) {
+			$classes[] = 'type-page';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Disable post thumbnail in front end.
+	 *
+	 * @param bool $has_thumbnail true if the post has a post thumbnail, otherwise false.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return bool
+	 */
+	public function has_thumbnail( $has_thumbnail ) {
+		// We don't need thumb for profile.
+		if ( is_singular( 'profile' ) ) {
+			$has_thumbnail = false;
+		}
+
+		return $has_thumbnail;
 	}
 }
