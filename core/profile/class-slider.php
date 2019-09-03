@@ -50,13 +50,14 @@ class Slider extends Base {
 	/**
 	 * Get gallery using lightbox plugin.
 	 *
-	 * @param array $images Images.
+	 * @param array  $images Images.
+	 * @param string $name   Profile name for alt.
 	 *
 	 * @since 1.0.1
 	 *
 	 * @return string
 	 */
-	public function profile_gallery( $images ) {
+	public function profile_gallery( $images, $name = 'Profile Image' ) {
 		// Basic requirement check.
 		if ( empty( $images[0]['images'] ) ) {
 			return '';
@@ -70,7 +71,7 @@ class Slider extends Base {
 		}
 
 		// Render gallery.
-		return $this->render_slider( $image_urls );
+		return $this->render_slider( $image_urls, $name );
 	}
 
 	/**
