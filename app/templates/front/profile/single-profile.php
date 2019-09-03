@@ -53,7 +53,7 @@ use Gamos\Core\Profile\Slider;
 			<?php echo Slider::instance()->profile_gallery( $images, get_the_title() ); ?>
 		<?php else : ?>
             <div class="gamos-notice error">
-                <p><?php printf( __( 'Please <a href="">login</a> to see the profile images.', 'gamos-plugin' ), site_url( 'login' ) ); ?></p>
+                <p><?php printf( __( 'Please <a href="%s">login</a> to see the profile images.', 'gamos-plugin' ), site_url( 'login' ) ); ?></p>
             </div>
 		<?php endif; ?>
 
