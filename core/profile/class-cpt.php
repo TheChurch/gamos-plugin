@@ -42,6 +42,60 @@ class CPT extends Base {
 		add_filter( 'post_thumbnail_html', [ $this, 'default_thumbnail' ], 10, 5 );
 
 		add_action( 'init', [ $this, 'add_thumb_size' ] );
+
+		// Register custom status.
+		add_action( 'init', [ $this, 'profile_statuses' ] );
+
+		// Show custom statuses.
+		add_action( 'admin_footer-post.php', [ $this, 'show_post_status' ] );
+		add_action( 'admin_footer-edit.php', [ $this, 'show_edit_status' ] );
+	}
+
+	/**
+	 * Show married status in profile edit form status section.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public function show_post_status() {
+		global $post;
+
+		if ( 'profile' === $post->post_type ) {
+			$label    = 'married' === $post->post_status ? ' selected="selected"' : '';
+			$selected = 'married' === $post->post_status ? __( 'Married', 'gamos-plugin' ) : '';
+			?>
+            <script>
+				jQuery(document).ready(function () {
+					jQuery('#post-status-display').append('<?php echo $label; ?>');
+					jQuery('#post_status').append('<option value="married" <?php echo $selected; ?>><?php esc_html_e( 'Married', 'gamos-plugin' ); ?></option>');
+				});
+            </script>
+			<?php
+		}
+
+	}
+
+	/**
+	 * Show married status in quick edit form status section.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public function show_edit_status() {
+		global $post;
+
+		if ( 'profile' === $post->post_type ) {
+			?>
+            <script>
+				jQuery(document).ready(function () {
+					jQuery('select[name="_status"]').append('<option value="married"><?php esc_html_e( 'Married', 'gamos-plugin' ); ?></option>');
+				});
+            </script>
+			<?php
+		}
+
 	}
 
 	/**
@@ -133,6 +187,27 @@ class CPT extends Base {
 
 		// Register taxonomy.
 		register_taxonomy( 'churches', 'profile', $args );
+	}
+
+	/**
+	 * Add new custom status for profile post type.
+	 *
+	 * We need a married status for the profile.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public function profile_statuses() {
+		register_post_status( 'married', [
+			'label'                     => __( 'Married', 'gamos-plugin' ),
+			'public'                    => true,
+			'exclude_from_search'       => false,
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+			'label_count'               => _n_noop( 'Married <span class="count">(%s)</span>', 'Married <span class="count">(%s)</span>' ),
+			'post_type'                 => [ 'profile' ],
+		] );
 	}
 
 	/**
