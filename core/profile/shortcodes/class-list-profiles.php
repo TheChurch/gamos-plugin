@@ -128,9 +128,9 @@ class List_Profiles extends Base {
 		// Church query.
 		if ( $church ) {
 			// Setup meta query.
-			$args['meta_query'][] = [
-				'key'   => 'church',
-				'value' => $church,
+			$args['tax_query'][] = [
+				'taxonomy' => 'churches',
+				'terms'    => $church,
 			];
 		}
 
