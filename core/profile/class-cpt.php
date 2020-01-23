@@ -64,7 +64,7 @@ class CPT extends Base {
 	public function show_post_status() {
 		global $post;
 
-		if ( 'profile' === $post->post_type ) {
+		if ( isset( $post->post_type ) && 'profile' === $post->post_type ) {
 			$label    = 'married' === $post->post_status ? ' selected="selected"' : '';
 			$selected = 'married' === $post->post_status ? __( 'Married', 'gamos-plugin' ) : '';
 			?>
@@ -89,7 +89,7 @@ class CPT extends Base {
 	public function show_edit_status() {
 		global $post;
 
-		if ( 'profile' === $post->post_type ) {
+		if ( isset( $post->post_type ) && 'profile' === $post->post_type ) {
 			?>
             <script>
 				jQuery(document).ready(function () {
@@ -114,7 +114,7 @@ class CPT extends Base {
 		global $post;
 
 		// Only for married profiles.
-		if ( 'married' === $post->post_status ) {
+		if ( isset( $post->post_status ) && 'married' === $post->post_status ) {
 			return [ __( 'Married', 'gamos-plugin' ) ];
 		}
 
