@@ -49,6 +49,9 @@ class CPT extends Base {
 		// Show custom statuses.
 		add_action( 'admin_footer-post.php', [ $this, 'show_post_status' ] );
 		add_action( 'admin_footer-edit.php', [ $this, 'show_edit_status' ] );
+
+		// Display married label.
+		add_filter( 'display_post_states', [ $this, 'display_married_label' ] );
 	}
 
 	/**
@@ -96,6 +99,26 @@ class CPT extends Base {
 			<?php
 		}
 
+	}
+
+	/**
+	 * Show "Married" label to the profiles with married status.
+	 *
+	 * @param array $statuses Array of statuses.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return array
+	 */
+	public function display_married_label( $statuses ) {
+		global $post;
+
+		// Only for married profiles.
+		if ( 'married' === $post->post_status ) {
+			return [ __( 'Married', 'gamos-plugin' ) ];
+		}
+
+		return $statuses;
 	}
 
 	/**
