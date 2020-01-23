@@ -31,7 +31,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_min_age" id="profile_min_age" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
 							<?php foreach ( range( 18, 60 ) as $number ) : ?>
                                 <option value="<?php echo $number; ?>" <?php selected( $min_age, $number ); ?>><?php echo $number; ?></option>
 							<?php endforeach; ?>
@@ -42,7 +42,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_max_age" id="profile_max_age" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
 							<?php foreach ( range( 18, 60 ) as $number ) : ?>
                                 <option value="<?php echo $number; ?>" <?php selected( $max_age, $number ); ?>><?php echo $number; ?></option>
 							<?php endforeach; ?>
@@ -56,7 +56,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_education" id="profile_education" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
                             <option value="none" <?php selected( $education, 'none' ); ?>><?php esc_html_e( 'None', 'gamos-plugin' ); ?></option>
                             <option value="hs" <?php selected( $education, 'hs' ); ?>><?php esc_html_e( 'High School', 'gamos-plugin' ); ?></option>
                             <option value="hsc" <?php selected( $education, 'hsc' ); ?>><?php esc_html_e( 'Higher Secondary', 'gamos-plugin' ); ?></option>
@@ -70,7 +70,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_job" id="profile_job" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
                             <option value="none" <?php selected( $job, 'none' ); ?>><?php esc_html_e( 'None', 'gamos-plugin' ); ?></option>
                             <option value="private" <?php selected( $job, 'private' ); ?>><?php esc_html_e( 'Private', 'gamos-plugin' ); ?></option>
                             <option value="govt" <?php selected( $job, 'govt' ); ?>><?php esc_html_e( 'Government', 'gamos-plugin' ); ?></option>
@@ -85,7 +85,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_church" id="profile_church" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
 							<?php foreach ( $churches as $id => $name ) : ?>
                                 <option value="<?php echo $id; ?>" <?php selected( $church, $id ); ?>><?php echo $name; ?></option>
 							<?php endforeach; ?>
@@ -96,7 +96,7 @@ defined( 'WPINC' ) || die();
                     </th>
                     <td>
                         <select name="profile_gender" id="profile_gender" class="gamos-select2">
-                            <option value=""><?php esc_html_e( 'All', 'gamos-plugin' ); ?></option>
+                            <option value=""><?php esc_html_e( 'All', 'beyond2016-gamos' ); ?></option>
                             <option value="male" <?php selected( $gender, 'male' ); ?>><?php esc_html_e( 'Male', 'gamos-plugin' ); ?></option>
                             <option value="female" <?php selected( $gender, 'female' ); ?>><?php esc_html_e( 'Female', 'gamos-plugin' ); ?></option>
                         </select>

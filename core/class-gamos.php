@@ -32,6 +32,7 @@ final class Gamos extends Base {
 		// Initialize cpts.
 		$this->cpts();
 
+		// Setup assets.
 		$this->assets();
 
 		// Setup profile functionality.
@@ -39,6 +40,9 @@ final class Gamos extends Base {
 
 		// Setup shortcodes.
 		$this->shortcodes();
+
+		// Other functionality.
+		$this->others();
 	}
 
 	/**
@@ -79,5 +83,14 @@ final class Gamos extends Base {
 	 */
 	private function assets() {
 		Assets::instance()->init();
+	}
+
+	/**
+	 * Register other features.
+	 *
+	 * @since 1.2.0
+	 */
+	private function others() {
+		Utilities::instance()->init();
 	}
 }
