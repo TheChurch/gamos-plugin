@@ -52,6 +52,30 @@ class CPT extends Base {
 
 		// Display married label.
 		add_filter( 'display_post_states', [ $this, 'display_married_label' ] );
+
+		// Redirect married profiles.
+		add_action('template_redirect', [ $this, 'redirect_profile' ] );
+	}
+
+	/**
+	 * Redirect married profiles to home page.
+	 *
+	 * @since 1.2.0
+	 */
+	public function redirect_profile() {
+		global $post;
+
+		// Redirect only profiles.
+		if ( is_singular( 'profile' ) && ! empty( $post->ID ) ) {
+			// Get profile status.
+			$status = get_post_status( $post->ID );
+
+			// Redirect only if married.
+			if ( 'married' === $status ) {
+				wp_redirect( home_url(), 301 );
+				exit;
+			}
+		}
 	}
 
 	/**
@@ -205,6 +229,7 @@ class CPT extends Base {
 			'query_var'         => true,
 			'show_in_nav_menus' => false,
 			'meta_box_cb'       => false,
+			'public'            => false,
 			'rewrite'           => [ 'slug' => 'church' ],
 		];
 
