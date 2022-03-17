@@ -30,13 +30,13 @@ class Filter extends Base {
 	 */
 	public function init() {
 		// Register styles and scripts.
-		add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 
 		// Register custom query vars for profile.
-		add_filter( 'query_vars', [ $this, 'profile_query_vars' ] );
+		add_filter( 'query_vars', array( $this, 'profile_query_vars' ) );
 
 		// Register shortcode.
-		add_shortcode( 'gamos_profile_filter', [ $this, 'filter' ] );
+		add_shortcode( 'gamos_profile_filter', array( $this, 'filter' ) );
 	}
 
 	/**
@@ -52,19 +52,25 @@ class Filter extends Base {
 		wp_enqueue_script( 'select2' );
 
 		// Render template.
-		$content = Helper::view( 'front/profile/shortcodes/profile-filter', [
-			'job'       => get_query_var( 'profile_job', false ),
-			'gender'    => get_query_var( 'profile_gender', false ),
-			'church'    => get_query_var( 'profile_church', false ),
-			'min_age'   => get_query_var( 'profile_min_age', false ),
-			'max_age'   => get_query_var( 'profile_max_age', false ),
-			'education' => get_query_var( 'profile_education', false ),
-			'churches'  => get_terms( [
-				'taxonomy'   => 'churches',
-				'hide_empty' => false,
-				'fields'     => 'id=>name',
-			] ),
-		], true );
+		$content = Helper::view(
+			'front/profile/shortcodes/profile-filter',
+			array(
+				'job'        => get_query_var( 'profile_job', false ),
+				'gender'     => get_query_var( 'profile_gender', false ),
+				'church'     => get_query_var( 'profile_church', false ),
+				'min_age'    => get_query_var( 'profile_min_age', false ),
+				'max_age'    => get_query_var( 'profile_max_age', false ),
+				'education'  => get_query_var( 'profile_education', false ),
+				'churches'   => get_terms(
+					array(
+						'taxonomy'   => 'churches',
+						'hide_empty' => false,
+						'fields'     => 'id=>name',
+					)
+				),
+			),
+			true
+		);
 
 		return $content;
 	}
@@ -84,7 +90,7 @@ class Filter extends Base {
 
 			wp_register_style( 'select2', $lib_path . '/css/select2.min.css' );
 
-			wp_register_script( 'select2', $lib_path . '/js/select2.min.js', [ 'jquery' ] );
+			wp_register_script( 'select2', $lib_path . '/js/select2.min.js', array( 'jquery' ) );
 		}
 	}
 
